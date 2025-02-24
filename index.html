@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bikin game</title>
+    <link rel="stylesheet" href="./assets/css/charaters.css">
+</head>
+<style>
+    :root {
+        --sky-blue: #00bbff;
+        --secondary-color: #2ecc71;
+        --background-color: #ecf0f1;
+        --text-color: #2c3e50;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        /* overflow: hidden; */
+    }
+
+    #gameContainer {
+        height: 720px;
+        width: 1280px;
+        margin: 0;
+        overflow: hidden;
+        background-color: var(--sky-blue);
+        scale: 1;
+        transform-origin: top left;
+    }
+
+    @keyframes knight-walk {
+        0% {
+            transform: translateY(-250px) translateX(100px);
+        }
+        90% {
+            transform: translateY(-250px) translateX(900px);
+        }
+        100% {
+            transform: translateY(-250px) translateX(900px);
+        }
+    }
+    @keyframes knight-walk-back {
+        0% {
+            transform: translateY(-250px) translateX(900px);
+        }
+        10% {
+            transform: translateY(-250px) translateX(900px);
+        }
+        100% {
+            transform: translateY(-250px) translateX(100px);
+        }
+    }
+    #knight[data-animate="walk"]{
+        transform: translateY(-250px) translateX(900px);
+        animation: knight-walk 800ms linear;
+    }
+    #knight[data-animate="attack"]{
+        transform: translateY(-250px) translateX(900px);
+    }
+    #knight[data-animate="walkBack"]{
+        transform: translateY(-250px) translateX(100px);
+        animation: knight-walk-back 800ms linear;
+    }
+</style>
+
+<body>
+    <div id="gameContainer">
+        <div>
+            <button id="btnAttack">attack</button>
+        </div>
+        <div id="knight" data-animate="idle">
+            <div id="knightIdle" style="animation-duration: 500ms;"></div>
+            <div id="knightWalk" style="animation-duration: 200ms;"></div>
+            <div id="knightAttack" style="animation-duration: 200ms;"></div>
+            <div id="knightDamaged" style="animation-duration: 100ms;"></div>
+        </div>
+        <div id="slime" data-animate="idle">
+            <div id="slimeIdle" style="animation-duration: 500ms;"></div>
+            <div id="slimeWalk" style="animation-duration: 500ms;"></div>
+            <div id="slimeAttack" style="animation-duration: 500ms;"></div>
+            <div id="slimeDamaged" style="animation-duration: 200ms;"></div>
+        </div>
+    </div>
+</body>
+<script>
+    // all character class
+    class Character {
+        constructor(element, name, health, attack, defense, isEnemy = true) {
+            this.element = element;
+            this.name = name;
+            this.health = health;
+            this.attack = attack;
+            this.defense = defense;
+            this.isEnemy = isEnemy;
+        }
+        performAttack(target) {
+            let damage = this.attack - target.defense;
+
+            if(!isEnemy){
+                this.element.setAttribute('data-animate', 'attack');
+            }
+
+            if (damage > 0) {
+                target.health -= damage;
+                console.log(`${this.name} attacks ${target.name} for ${damage} damage.`);
+            } else {
+                console.log(`${this.name} attacks ${target.name} but it has no effect.`);
+            }
+            if (target.health <= 0) {
+                console.log(`${target.name} has been defeated.`);
+            }
+        }
+    }
+    let knight = new Character(document.getElementById('knight'), 'knight', 100, 10, 2, false);
+    let slime = new Character(document.getElementById('slime'), 'slime', 50, 5, 0);
+    // // all character class
+
+    function animateKnightAttack(element) {
+        element.setAttribute('data-animate', 'walk');
+        setTimeout(() => {
+            element.setAttribute('data-animate', 'attack');
+            setTimeout(() => {
+                element.setAttribute('data-animate', 'walkBack');
+                setTimeout(() => {
+                    element.setAttribute('data-animate', 'idle');
+                }, 800);
+            }, 200);
+        }, 800);
+    }
+    document.getElementById('btnAttack').addEventListener('click', () => {
+        // knight.performAttack(slime);
+        // slime.performAttack(knight);
+        console.log(knight.health, slime.health);
+        animateKnightAttack(knight.element);
+        setTimeout(() => {
+            slime.element.setAttribute('data-animate', 'damaged');
+            setTimeout(() => {
+                slime.element.setAttribute('data-animate', 'idle');
+            }, 250);
+        }, 800);
+    });
+</script>
+
+</html>
