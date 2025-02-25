@@ -21,6 +21,10 @@
         --yellow: #ffde79;
     }
 
+    .z-100 {
+        z-index: 100;
+    }
+
     #gameContainer {
         display: flex;
         align-items: flex-end;
@@ -33,14 +37,43 @@
         transform-origin: top left;
     }
 
+
     #allyContainer {
         margin-left: 250px;
         margin-bottom: 250px;
     }
 
+    @keyframes animateMoveBackAllyContainer {
+        from {
+            transform: translateX(530px);
+        }
+
+        to {
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes animateMoveAllyContainer {
+        from {
+            transform: translateX(0);
+        }
+
+        to {
+            transform: translateX(530px);
+        }
+    }
+
+    #allyContainer.move {
+        transform: translateX(530px);
+        animation: animateMoveAllyContainer 700ms steps(25);
+    }
+
+    #allyContainer.move-back {
+        animation: animateMoveBackAllyContainer 700ms steps(25);
+    }
+
     #enemyContainer {
         transform: scaleX(-1);
-        /* biar enemy liat kiri */
         margin-right: 250px;
         margin-bottom: 250px;
     }
@@ -56,6 +89,20 @@
         }
     }
 
+    @keyframes knight-animate-atk {
+
+        /* tambahan keyframe karena sprite attack nya ga pas */
+        from {
+            background-position: -168px;
+            /* start from frame 2 */
+        }
+
+        to {
+            background-position: -4368px;
+            /* end with frame 1 */
+        }
+    }
+
     #knight {}
 
     #knight>div {
@@ -65,38 +112,45 @@
         transform: translateY(-225px);
         opacity: 0;
         pointer-events: none;
-        animation: knight-animate-bg steps(25) infinite;
     }
 
     #knight>.idle {
         background-image: url('./assets/Character/Knight/knight_idle.png');
-        animation-duration: 1000ms;
     }
 
     #knight>.walk {
         background-image: url('./assets/Character/Knight/knight_walk.png');
-        /* put animation duration here */
     }
 
     #knight>.attack {
         background-image: url('./assets/Character/Knight/knight_attack.png');
-        /* put animation duration here */
     }
 
     #knight>.damaged {
         background-image: url('./assets/Character/Knight/knight_damaged.png');
-        /* put animation duration here */
     }
 
     #knight>.died {
         background-image: url('./assets/Character/Knight/knight_died.png');
-        /* put animation duration here */
     }
 
-    #knight[data-animate="idle"]>.idle,
-    #knight[data-animate="walk"]>.walk,
-    #knight[data-animate="attack"]>.attack,
+    #knight[data-animate="idle"]>.idle {
+        opacity: 1;
+        animation: knight-animate-bg 1000ms steps(25) infinite;
+    }
+
+    #knight[data-animate="walk"]>.walk {
+        opacity: 1;
+        animation: knight-animate-bg 250ms steps(25) infinite;
+    }
+
     #knight[data-animate="damaged"]>.damaged {
+        opacity: 1;
+    }
+
+    #knight[data-animate="attack"]>.attack {
+        animation: knight-animate-atk 300ms steps(25);
+        background-position: -168px;
         opacity: 1;
     }
 </style>
@@ -212,6 +266,7 @@
 </style>
 
 <body>
+    <button id="atkBtn">attack</button>
     <div id="gameContainer">
         <div id="allyContainer">
             <div id="knight" data-animate="idle">
@@ -240,5 +295,31 @@
         </div>
     </div>
 </body>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        let $knight = document.getElementById('knight');
+        let $allyContainer = document.getElementById('allyContainer');
+        function animateKnightAttack() {
+            $knight.dataset.animate = 'walk';
+            $allyContainer.classList.add('move', 'z-100');
+            setTimeout(() => {
+                $knight.dataset.animate = 'idle';
+                setTimeout(() => {
+                    $knight.dataset.animate = 'attack';
+                    setTimeout(() => {
+                        $knight.dataset.animate = 'walk';
+                        $allyContainer.classList.replace('move', 'move-back');
+                        setTimeout(() => {
+                            $knight.dataset.animate = 'idle';
+                            $allyContainer.classList.remove('move-back','z-100');
+                        }, 700);
+                    }, 500);
+                }, 100);
+            }, 700);
+        }
+        document.getElementById('atkBtn').addEventListener('click', animateKnightAttack);
+    })
+</script>
 
 </html>
