@@ -298,25 +298,24 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        function delay(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
         let $knight = document.getElementById('knight');
         let $allyContainer = document.getElementById('allyContainer');
-        function animateKnightAttack() {
+        async function animateKnightAttack() {
             $knight.dataset.animate = 'walk';
             $allyContainer.classList.add('move', 'z-100');
-            setTimeout(() => {
-                $knight.dataset.animate = 'idle';
-                setTimeout(() => {
-                    $knight.dataset.animate = 'attack';
-                    setTimeout(() => {
-                        $knight.dataset.animate = 'walk';
-                        $allyContainer.classList.replace('move', 'move-back');
-                        setTimeout(() => {
-                            $knight.dataset.animate = 'idle';
-                            $allyContainer.classList.remove('move-back','z-100');
-                        }, 700);
-                    }, 500);
-                }, 100);
-            }, 700);
+            await delay(700);
+            $knight.dataset.animate = 'idle';
+            await delay(100);
+            $knight.dataset.animate = 'attack';
+            await delay(500);
+            $knight.dataset.animate = 'walk';
+            $allyContainer.classList.replace('move', 'move-back');
+            await delay(700);
+            $knight.dataset.animate = 'idle';
+            $allyContainer.classList.remove('move-back', 'z-100');
         }
         document.getElementById('atkBtn').addEventListener('click', animateKnightAttack);
     })
