@@ -25,6 +25,13 @@
         z-index: 100;
     }
 
+    #backgroundContainer {
+        display: flex;
+        flex-direction: column;
+        height: 720px;
+        width: 1280px;
+    }
+
     #gameContainer {
         display: flex;
         align-items: flex-end;
@@ -32,7 +39,6 @@
         height: 720px;
         width: 1280px;
         overflow: hidden;
-        background-color: var(--blue);
         scale: 1;
         transform-origin: top left;
     }
@@ -65,16 +71,16 @@
 
     #allyContainer.move {
         transform: translateX(530px);
-        animation: animateMoveAllyContainer 700ms steps(25);
+        animation: animateMoveAllyContainer 700ms steps(30);
     }
 
     #allyContainer.move-back {
-        animation: animateMoveBackAllyContainer 700ms steps(25);
+        animation: animateMoveBackAllyContainer 700ms steps(30);
     }
 
     @keyframes animateMoveBackEnemyContainer {
         from {
-            transform: scaleX(-1) translateX(550px);
+            transform: scaleX(-1) translateX(530px);
         }
 
         to {
@@ -88,7 +94,71 @@
         }
 
         to {
-            transform: scaleX(-1) translateX(550px);
+            transform: scaleX(-1) translateX(530px);
+        }
+    }
+
+    @keyframes animateMoveSlime {
+        0% {
+            transform: scaleX(-1);
+        }
+
+        28% {
+            transform: scaleX(-1) translateX(0);
+        }
+
+        36% {
+            transform: scaleX(-1) translateX(112px);
+        }
+
+        47% {
+            transform: scaleX(-1) translateX(225px);
+
+        }
+
+        77% {
+            transform: scaleX(-1) translateX(225px);
+
+        }
+
+        87% {
+            transform: scaleX(-1) translateX(337px);
+        }
+
+        100% {
+            transform: scaleX(-1) translateX(450px);
+        }
+    }
+
+    @keyframes animateMoveBackSlime {
+        0% {
+            transform: scaleX(-1) translateX(450px);
+        }
+
+        28% {
+            transform: scaleX(-1) translateX(450px);
+        }
+
+        36% {
+            transform: scaleX(-1) translateX(338px);
+        }
+
+        47% {
+            transform: scaleX(-1) translateX(225px);
+
+        }
+
+        77% {
+            transform: scaleX(-1) translateX(225px);
+
+        }
+
+        87% {
+            transform: scaleX(-1) translateX(113px);
+        }
+
+        100% {
+            transform: scaleX(-1);
         }
     }
 
@@ -99,8 +169,63 @@
     }
 
     #enemyContainer.move {
-        transform: scaleX(-1) translateX(550px);
-        animation: animateMoveEnemyContainer 1000ms linear;
+        transform: scaleX(-1) translateX(530px);
+        animation: animateMoveEnemyContainer 1000ms steps(25);
+    }
+
+    #enemyContainer.move-slime {
+        transform: scaleX(-1) translateX(450px);
+        animation: animateMoveSlime 1400ms steps(10);
+    }
+
+    #enemyContainer.move-back-slime {
+        transform: scaleX(-1);
+        animation: animateMoveBackSlime 1400ms steps(10);
+    }
+
+    @keyframes animateMoveGolem {
+        from {
+            transform: scaleX(-1);
+        }
+
+        to {
+            transform: scaleX(-1) translateX(350px);
+        }
+    }
+
+    @keyframes animateMoveGolemAttack {
+        0% {
+            transform: scaleX(-1) translateX(350px);
+        }
+
+        100% {
+            transform: scaleX(-1) translateX(520px);
+        }
+    }
+
+    @keyframes animateMoveBackGolem {
+        from {
+            transform: scaleX(-1) translateX(520px);
+        }
+
+        to {
+            transform: scaleX(-1);
+        }
+    }
+
+    #enemyContainer.move-golem {
+        transform: scaleX(-1) translateX(350px);
+        animation: animateMoveGolem 1000ms steps(25);
+    }
+
+    #enemyContainer.move-golem-attack {
+        transform: scaleX(-1) translateX(520px);
+        animation: animateMoveGolemAttack 800ms steps(25);
+    }
+
+    #enemyContainer.move-back-golem {
+        transform: scaleX(-1);
+        animation: animateMoveBackGolem 1200ms steps(32);
     }
 </style>
 <style id="knightStyle">
@@ -128,7 +253,19 @@
         }
     }
 
-    #knight {}
+    @keyframes knight-animate-damaged {
+
+        /* tambahan keyframe karena sprite attack nya ga pas */
+        from {
+            background-position: -336px;
+            /* start from frame 2 */
+        }
+
+        to {
+            background-position: -4536px;
+            /* end with frame 1 */
+        }
+    }
 
     #knight>div {
         position: absolute;
@@ -171,6 +308,8 @@
 
     #knight[data-animate="damaged"]>.damaged {
         opacity: 1;
+        animation: knight-animate-damaged 200ms steps(25);
+        background-position: -336px;
     }
 
     #knight[data-animate="attack"]>.attack {
@@ -190,6 +329,69 @@
         }
     }
 
+    @keyframes slime-animate-jump {
+        0% {
+            background-position: 0;
+        }
+
+        20% {
+            transform: translateY(-98px);
+        }
+
+        55% {
+            transform: translateY(-100px);
+        }
+
+        65% {
+            transform: translateY(-200px);
+        }
+
+        75% {
+            transform: translateY(-220px);
+        }
+
+        95% {
+            transform: translateY(-102px);
+        }
+
+        100% {
+            background-position: -2800px;
+            transform: translateY(-102px);
+        }
+    }
+
+    @keyframes slime-animate-jump-fliped {
+        0% {
+            background-position: 0;
+            transform: scaleX(-1) translateY(-98px);
+        }
+
+        20% {
+            transform: scaleX(-1) translateY(-98px);
+        }
+
+        55% {
+            transform: scaleX(-1) translateY(-100px);
+        }
+
+        65% {
+            transform: scaleX(-1) translateY(-200px);
+        }
+
+        75% {
+            transform: scaleX(-1) translateY(-220px);
+        }
+
+        95% {
+            transform: scaleX(-1) translateY(-102px);
+        }
+
+        100% {
+            background-position: -2800px;
+            transform: scaleX(-1) translateY(-102px);
+        }
+    }
+
     @keyframes slime-animate-damaged {
         from {
             background-position: -1568px;
@@ -202,28 +404,27 @@
 
     @keyframes slime-animate-attack {
         0% {
-            background-position: 0;
+            background-position: -112px;
             transform: translateY(-102px);
         }
-        49% {
-            transform: translateY(-102px);
+
+        30% {
+            transform: translateY(-102px) translateX(0);
         }
-        75% {
-            transform: translateY(-160px);
+
+        45% {
+            transform: translateY(-220px) translateX(100px);
         }
-        85% {
-            transform: translateY(-170px);
+
+        80% {
+            transform: translateY(-102px) translateX(0);
         }
-        95% {
-            transform: translateY(-160px);
-        }
+
         100% {
             background-position: -2912px;
             transform: translateY(-102px);
         }
     }
-
-    #slime {}
 
     #slime>div {
         position: absolute;
@@ -261,13 +462,17 @@
 
     #slime[data-animate="attack"]>.attack {
         opacity: 1;
-        background-position: -1568px;
-        animation: slime-animate-attack 500ms steps(26);
+        animation: slime-animate-attack 500ms steps(25);
     }
 
     #slime[data-animate="walk"]>.walk {
         opacity: 1;
-        animation: slime-animate-bg 250ms steps(25) infinite;
+        animation: slime-animate-jump 700ms steps(25) infinite;
+    }
+
+    #slime[data-animate="walk_fliped"]>.walk {
+        opacity: 1;
+        animation: slime-animate-jump-fliped 700ms steps(25) infinite;
     }
 
     #slime[data-animate="damaged"]>.damaged {
@@ -275,95 +480,154 @@
         background-position: -1568px;
         animation: slime-animate-damaged 300ms steps(25);
     }
+
+    #slime[data-animate="died"]>.died {
+        opacity: 1;
+        animation: slime-animate-bg 1000ms steps(25);
+    }
 </style>
-<style id="slimeBossStyle">
-    @keyframes slimeBoss-animate-bg {
+<style id="golemStyle">
+    @keyframes golem-animate-bg {
         from {
             background-position: 0;
         }
 
         to {
-            background-position: -3025px;
+            background-position: -4275px;
         }
     }
 
-    #slimeBoss {}
+    @keyframes golem-animate-attack {
+        0% {
+            background-position: 0;
+            transform: translateY(-125px);
+        }
 
-    #slimeBoss>div {
+        15% {
+            transform: translateY(-325px);
+        }
+
+        25% {
+            transform: translateY(-375px);
+        }
+
+        45% {
+            transform: translateY(-325px);
+        }
+
+        60% {
+            transform: translateY(-125px);
+        }
+
+        100% {
+            background-position: -4275px;
+        }
+    }
+
+    #golem>div {
         position: absolute;
-        width: 121px;
-        height: 133px;
-        transform: translateY(-133px);
+        width: 171px;
+        height: 125px;
+        transform: translateY(-125px);
         opacity: 0;
         pointer-events: none;
-        animation: slimeBoss-animate-bg steps(25) infinite;
     }
 
-    #slimeBoss>.idle {
-        background-image: url('./assets/Character/Slime Boss/SlimeBoss_Idle.png');
-        animation-duration: 1000ms;
+    #golem>.idle {
+        background-image: url('./assets/Character/Golem/golem_idle.png');
     }
 
-    #slimeBoss>.walk {
-        background-image: url('./assets/Character/Slime Boss/SlimeBoss_Walk.png');
+    #golem>.walk {
+        background-image: url('./assets/Character/Golem/golem_walk.png');
     }
 
-    #slimeBoss>.attack {
-        background-image: url('./assets/Character/Slime Boss/SlimeBoss_Attack.png');
+    #golem>.attack {
+        background-image: url('./assets/Character/Golem/golem_attack.png');
     }
 
-    #slimeBoss>.damaged {
-        background-image: url('./assets/Character/Slime Boss/SlimeBoss_Damaged.png');
+    #golem>.damaged {
+        background-image: url('./assets/Character/Golem/golem_damaged.png');
     }
 
-    #slimeBoss>.died {
-        background-image: url('./assets/Character/Slime Boss/SlimeBoss_Died.png');
+    #golem>.died {
+        background-image: url('./assets/Character/Golem/golem_died.png');
     }
 
-    #slimeBoss[data-animate="idle"]>.idle,
-    #slimeBoss[data-animate="walk"]>.walk,
-    #slimeBoss[data-animate="attack"]>.attack,
-    #slimeBoss[data-animate="damaged"]>.damaged {
+    #golem[data-animate="idle"]>.idle {
         opacity: 1;
+        animation: golem-animate-bg 1000ms steps(25) infinite;
+    }
+
+    #golem[data-animate="walk"]>.walk {
+        opacity: 1;
+        animation: golem-animate-bg 350ms steps(25) infinite;
+    }
+
+    #golem[data-animate="walk_fliped"]>.walk {
+        opacity: 1;
+        transform: scaleX(-1) translateY(-125px);
+        animation: golem-animate-bg 350ms steps(25) infinite;
+    }
+
+    #golem[data-animate="attack"]>.attack {
+        opacity: 1;
+        animation: golem-animate-attack 1500ms steps(25);
+    }
+
+    #golem[data-animate="damaged"]>.damaged {
+        opacity: 1;
+        animation: golem-animate-bg 200ms steps(25);
+    }
+    #golem[data-animate="died"]>.died {
+        opacity: 1;
+        animation: golem-animate-bg 300ms steps(25);
     }
 </style>
 
 <body>
-    <button id="atkBtn">attack</button>
-    <div id="gameContainer">
-        <div id="allyContainer">
-            <div id="knight" data-animate="idle">
-                <div class="idle"></div>
-                <div class="walk"></div>
-                <div class="attack"></div>
-                <div class="damaged"></div>
-                <div class="died"></div>
+    <button id="knightAtkBtn">knight attack</button>
+    <button id="slimeAtkBtn">slime attack</button>
+    <button id="golemAtkBtn">golem attack</button>
+    <div>
+        <div id="gameContainer" style="position: absolute;">
+            <div id="allyContainer">
+                <div id="knight" data-animate="idle">
+                    <div class="idle"></div>
+                    <div class="walk"></div>
+                    <div class="attack"></div>
+                    <div class="damaged"></div>
+                    <div class="died"></div>
+                </div>
+            </div>
+            <div id="enemyContainer">
+                <div id="slime" data-animate="">
+                    <div class="idle"></div>
+                    <div class="walk"></div>
+                    <div class="attack"></div>
+                    <div class="damaged"></div>
+                    <div class="died"></div>
+                </div>
+                <div id="golem" data-animate="idle">
+                    <div class="idle"></div>
+                    <div class="walk"></div>
+                    <div class="attack"></div>
+                    <div class="damaged"></div>
+                    <div class="died"></div>
+                </div>
             </div>
         </div>
-        <div id="enemyContainer">
-            <div id="slime" data-animate="idle">
-                <div class="idle"></div>
-                <div class="walk"></div>
-                <div class="attack"></div>
-                <div class="damaged"></div>
-                <div class="died"></div>
-            </div>
-            <div id="slimeBoss" data-animate="">
-                <div class="idle"></div>
-                <div class="walk"></div>
-                <div class="attack"></div>
-                <div class="damaged"></div>
-                <div class="died"></div>
-            </div>
+        <div id="backgroundContainer">
+            <div style="background-color: var(--blue); flex-grow: 1;">pretend this is sky</div>
+            <div style="background-color: var(--green); height: 260px;">pretend this is grass</div>
         </div>
     </div>
 </body>
 
 <script>
+    function delay(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
     document.addEventListener('DOMContentLoaded', function () {
-        function delay(ms) {
-            return new Promise(resolve => setTimeout(resolve, ms));
-        }
         let $allyContainer = document.getElementById('allyContainer');
         let $knight = document.getElementById('knight');
         async function animateKnightAttack(enemyElement) {
@@ -388,19 +652,57 @@
         let $slime = document.getElementById('slime');
 
         async function animateSlimeAttack() {
-            $enemyContainer.classList.add('move', 'z-100');
+            $enemyContainer.classList.add('move-slime', 'z-100');
             $slime.dataset.animate = 'walk';
-            await delay(1010);
+            await delay(1400);
             $slime.dataset.animate = 'idle';
-            await delay(100);
+            await delay(200);
             $slime.dataset.animate = 'attack';
-            await delay(700);
+            await delay(210);
+            $knight.dataset.animate = 'damaged';
+            await delay(280)
             $slime.dataset.animate = 'idle';
+            $knight.dataset.animate = 'idle';
+            await delay(100);
+            $enemyContainer.classList.replace('move-slime', 'move-back-slime');
+            $slime.dataset.animate = 'walk_fliped';
+            await delay(1700)
+            $slime.dataset.animate = 'idle';
+            $enemyContainer.classList.remove('move-back-slime', 'z-100');
         }
 
-        document.getElementById('atkBtn').addEventListener('click', function () {
-            animateSlimeAttack(document.getElementById('slime'))
+        let $golem = document.getElementById('golem');
+
+        async function animateGolemAttack() {
+            $enemyContainer.classList.add('move-golem');
+            $golem.dataset.animate = 'walk';
+            await delay(1030);
+            $golem.dataset.animate = 'idle';
+            await delay(200);
+            $enemyContainer.classList.replace('move-golem', 'move-golem-attack');
+            $golem.dataset.animate = 'attack';
+            await delay(900);
+            $knight.dataset.animate = 'damaged';
+            await delay(200);
+            $knight.dataset.animate = 'idle';
+            $golem.dataset.animate = "idle";
+            await delay(300);
+            $golem.dataset.animate = 'walk_fliped';
+            $enemyContainer.classList.replace('move-golem-attack', 'move-back-golem');
+            await delay(1200);
+            $enemyContainer.classList.remove('move-back-golem');
+            $golem.dataset.animate = 'idle';
+        }
+
+        document.getElementById('knightAtkBtn').addEventListener('click', function () {
+            animateKnightAttack(document.querySelector('#enemyContainer>[data-animate="idle"]'));
         });
+        document.getElementById('slimeAtkBtn').addEventListener('click', function () {
+            animateSlimeAttack();
+        });
+        document.getElementById('golemAtkBtn').addEventListener('click', function () {
+            animateGolemAttack();
+        })
     })
 </script>
 
