@@ -432,9 +432,40 @@
     @keyframes knight-animate-died {
         from {
             background-position: -336px;
+            opacity: 1;
         }
+
+        60% {
+            opacity: 1;
+        }
+
+        70% {
+            opacity: 0;
+        }
+
+        75% {
+            opacity: 1;
+        }
+
+        80% {
+            opacity: 0;
+        }
+
+        85% {
+            opacity: 1;
+        }
+
+        90% {
+            opacity: 0;
+        }
+
+        95% {
+            opacity: 1;
+        }
+
         to {
             background-position: -4200px;
+            opacity: 0;
         }
     }
 
@@ -496,9 +527,8 @@
     }
 
     #knight[data-animate="died"]>.died {
-        opacity: 1;
         background-position: -4200px;
-        animation: knight-animate-died 5000ms steps(23);
+        animation: knight-animate-died 1000ms steps(23);
     }
 </style>
 <style id="slimeStyle">
@@ -609,6 +639,47 @@
         }
     }
 
+    @keyframes slime-animate-died {
+        from {
+            background-position: 0;
+            opacity: 1;
+        }
+
+        60% {
+            opacity: 1;
+        }
+
+        70% {
+            opacity: 0;
+        }
+
+        75% {
+            opacity: 1;
+        }
+
+        80% {
+            opacity: 0;
+        }
+
+        85% {
+            opacity: 1;
+        }
+
+        90% {
+            opacity: 0;
+        }
+
+        95% {
+            opacity: 1;
+        }
+
+
+        to {
+            opacity: 0;
+            background-position: -2800px;
+        }
+    }
+
     #slime>div {
         position: absolute;
         width: 112px;
@@ -665,8 +736,7 @@
     }
 
     #slime[data-animate="died"]>.died {
-        opacity: 1;
-        animation: slime-animate-bg 1000ms steps(25);
+        animation: slime-animate-died 1000ms steps(25);
     }
 </style>
 <style id="golemStyle">
@@ -704,6 +774,47 @@
 
         100% {
             background-position: -4275px;
+        }
+    }
+
+    @keyframes golem-animate-died {
+        from {
+            background-position: -342px;
+            opacity: 1;
+        }
+
+        60% {
+            opacity: 1;
+        }
+
+        70% {
+            opacity: 0;
+        }
+
+        75% {
+            opacity: 1;
+        }
+
+        80% {
+            opacity: 0;
+        }
+
+        85% {
+            opacity: 1;
+        }
+
+        90% {
+            opacity: 0;
+        }
+
+        95% {
+            opacity: 1;
+        }
+
+
+        to {
+            opacity: 0;
+            background-position: -3420px;
         }
     }
 
@@ -763,8 +874,7 @@
     }
 
     #golem[data-animate="died"]>.died {
-        opacity: 1;
-        animation: golem-animate-bg 300ms steps(25);
+        animation: golem-animate-died 1000ms steps(18);
     }
 </style>
 <style id="jellyfishStyle">
@@ -911,12 +1021,43 @@
     }
 
     @keyframes jellyfish-animate-died {
-        0% {
+        from {
             translate: 0 0;
-            background-position: 0;
+            background-position: -316px;
+            opacity: 1;
         }
 
-        100% {
+        60% {
+            opacity: 1;
+        }
+
+        70% {
+            opacity: 0;
+        }
+
+        75% {
+            opacity: 1;
+        }
+
+        80% {
+            opacity: 0;
+        }
+
+        85% {
+            opacity: 1;
+        }
+
+        90% {
+            opacity: 0;
+        }
+
+        95% {
+            opacity: 1;
+        }
+
+
+        to {
+            opacity: 0;
             translate: 0 30px;
             background-position: -3950px;
         }
@@ -984,10 +1125,10 @@
         transform-origin: 50% -100px;
         animation: jellyfish-animate-damaged 600ms steps(25) infinite;
     }
+
     #jellyfish[data-animate="died"]>.died {
-        opacity: 1;
         translate: 0 30px;
-        animation: jellyfish-animate-died 600ms steps(25);
+        animation: jellyfish-animate-died 1000ms steps(23);
     }
 </style>
 <style id="skeletonStyle">
@@ -1011,6 +1152,47 @@
         }
     }
 
+    @keyframes skeleton-animate-died {
+        from {
+            background-position: -364px;
+            opacity: 1;
+        }
+
+        60% {
+            opacity: 1;
+        }
+
+        70% {
+            opacity: 0;
+        }
+
+        75% {
+            opacity: 1;
+        }
+
+        80% {
+            opacity: 0;
+        }
+
+        85% {
+            opacity: 1;
+        }
+
+        90% {
+            opacity: 0;
+        }
+
+        95% {
+            opacity: 1;
+        }
+
+
+        to {
+            opacity: 0;
+            background-position: -4550px;
+        }
+    }
+
     #skeleton>div {
         position: absolute;
         height: 181px;
@@ -1030,6 +1212,10 @@
 
     #skeleton>.attack {
         background-image: url('./assets/Character/Skeleton/Skeleton_Attack.png');
+    }
+
+    #skeleton>.damaged {
+        background-image: url('./assets/Character/Skeleton/Skeleton_Damaged.png');
     }
 
     #skeleton>.died {
@@ -1058,9 +1244,14 @@
         background-position: 0;
         animation: skeleton-animate-atk 300ms steps(23);
     }
-    #skeleton[data-animate="died"]>.died {
+
+    #skeleton[data-animate="damaged"]>.damaged {
         opacity: 1;
-        animation: skeleton-animate-bg 400ms steps(25);
+        animation: skeleton-animate-bg 500ms steps(25);
+    }
+
+    #skeleton[data-animate="died"]>.died {
+        animation: skeleton-animate-died 1000ms steps(23);
     }
 </style>
 <style id="slimeBossStyle">
@@ -1166,6 +1357,16 @@
         }
     }
 
+    @keyframes slimeBoss-animate-damaged {
+        from {
+            background-position: -847px;
+        }
+
+        to {
+            background-position: -3388px;
+        }
+    }
+
     #slimeBoss>div {
         position: absolute;
         height: 133px;
@@ -1177,6 +1378,14 @@
 
     #slimeBoss>.idle {
         background-image: url('./assets/Character/SlimeBoss/SlimeBoss_Idle.png');
+    }
+
+    #slimeBoss>.damaged {
+        background-image: url('./assets/Character/SlimeBoss/SlimeBoss_Damaged.png');
+    }
+
+    #slimeBoss>.died {
+        background-image: url('./assets/Character/SlimeBoss/SlimeBoss_Died.png');
     }
 
     #slimeBoss[data-animate="idle"]>.idle {
@@ -1195,7 +1404,15 @@
         animation: slimeBoss-animate-jump-back 2000ms steps(25);
     }
 
-    #slimeBoss[data-animater="damaged"]>.damaged {}
+    #slimeBoss[data-animate="damaged"]>.damaged {
+        opacity: 1;
+        background-position: -363px;
+        animation: slimeBoss-animate-damaged 200ms steps(21);
+    }
+
+    #slimeBoss[data-animate="died"]>.died {
+        opacity: 0;
+    }
 </style>
 
 <body>
@@ -1210,7 +1427,7 @@
         <div id="game">
             <div id="gameContainer" style="position: absolute;">
                 <div id="allyContainer">
-                    <div id="knight" data-animate="died">
+                    <div id="knight" data-animate="idle">
                         <div class="idle"></div>
                         <div class="walk"></div>
                         <div class="attack"></div>
@@ -1240,7 +1457,7 @@
                         <div class="damaged"></div>
                         <div class="died"></div>
                     </div>
-                    <div id="skeleton" data-animate="">
+                    <div id="skeleton" data-animate="idle">
                         <div class="idle"></div>
                         <div class="walk"></div>
                         <div class="attack"></div>
@@ -1366,11 +1583,15 @@
             $skeleton.dataset.animate = 'idle';
             await delay(200);
             $skeleton.dataset.animate = 'attack';
-            await delay(270);
+            await delay(160)
+            $knight.dataset.animate = 'damaged';
+            await delay(110);
             $skeleton.dataset.animate = 'idle';
-            await delay(300);
+            await delay(90);
+            $knight.dataset.animate = 'idle';
+            await delay(200);
             $skeleton.dataset.animate = 'walk_fliped'
-            $enemyContainer.classList.replace('move-skeleton',  'move-back-skeleton');
+            $enemyContainer.classList.replace('move-skeleton', 'move-back-skeleton');
             await delay(1000);
             $skeleton.dataset.animate = 'idle';
             $enemyContainer.classList.remove('move-back-skeleton')
@@ -1437,5 +1658,7 @@
 </html>t>
 
 </html>t>
+
+</html>
 
 </html>
