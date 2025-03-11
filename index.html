@@ -1367,6 +1367,47 @@
         }
     }
 
+    @keyframes slimeBoss-animate-died {
+        from {
+            background-position: -484px;
+            opacity: 1;
+        }
+
+        60% {
+            opacity: 1;
+        }
+
+        70% {
+            opacity: 0;
+        }
+
+        75% {
+            opacity: 1;
+        }
+
+        80% {
+            opacity: 0;
+        }
+
+        85% {
+            opacity: 1;
+        }
+
+        90% {
+            opacity: 0;
+        }
+
+        95% {
+            opacity: 1;
+        }
+
+
+        to {
+            opacity: 0;
+            background-position: -3025px;
+        }
+    }
+
     #slimeBoss>div {
         position: absolute;
         height: 133px;
@@ -1412,6 +1453,7 @@
 
     #slimeBoss[data-animate="died"]>.died {
         opacity: 0;
+        animation: slimeBoss-animate-died 1000ms steps(21);
     }
 </style>
 
@@ -1457,7 +1499,7 @@
                         <div class="damaged"></div>
                         <div class="died"></div>
                     </div>
-                    <div id="skeleton" data-animate="idle">
+                    <div id="skeleton" data-animate="">
                         <div class="idle"></div>
                         <div class="walk"></div>
                         <div class="attack"></div>
